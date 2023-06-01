@@ -1,0 +1,15 @@
+-- JPA
+JPA: ORM(Object-Relation Mapping) 스펙. 자바 객체와 관계형 DB 간의 매핑 처리를 위한 API
+특징
+- 애노테이션을 이용한 매핑 설정. XML 파일을 이용한 매핑 설정도 가능
+- String, int, LocalDate 등 기본적인 타입에 대한 매핑 지원
+- 커스텀 타입 변환기 지원. 내가 만든 Money 타입을 DB 컬럼에 매핑 가능
+- 밸류 타입 매핑 지원. 한 개 이상 컬럼을 한 개 타입으로 매핑 가능
+- 클래스 간 연관 지원: 1-1, 1-N, N-1, N-M
+- 상속에 대한 매핑 지원
+
+MySQL 설치
+- https://dev.mysql.com/downloads/
+- 도커로 설치:
+docker create --name mysql8 -e MYSQL_ROOT_PASSWORD=root -p 3306:3306 mysql:8.0.27
+docker start mysql8
