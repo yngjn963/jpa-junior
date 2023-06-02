@@ -46,4 +46,8 @@ public class User {
     public void setCreateDate(LocalDateTime createDate) {
         this.createDate = createDate;
     }
+
+    public void changeName(String newName) {
+        this.name = newName;
+    }
 }

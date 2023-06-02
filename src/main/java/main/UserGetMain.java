@@ -5,7 +5,7 @@ import jpabasic.reserve.domain.User;
 
 import java.time.LocalDateTime;
 
-public class UserSaveMain {
+public class UserGetMain {
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("jpabegin");
         EntityManager entityManager = emf.createEntityManager();
@@ -19,9 +19,7 @@ public class UserSaveMain {
                 System.out.println("User 없음");
             }
             else {
-                String newName = "이름" + (System.currentTimeMillis() % 100);
-
-                user.changeName(newName);
+                System.out.printf("User 있음: email=%s, name=%s, createDate=%s\n", user.getEmail(), user.getName(), user.getCreateDate());
             }
 
             transaction.commit();

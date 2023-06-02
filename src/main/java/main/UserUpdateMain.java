@@ -1,11 +1,10 @@
 package main;
 
-import jakarta.persistence.*;
 import jpabasic.reserve.domain.User;
 
 import java.time.LocalDateTime;
 
-public class UserSaveMain {
+public class UserUpdateMain {
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("jpabegin");
         EntityManager entityManager = emf.createEntityManager();
@@ -14,15 +13,9 @@ public class UserSaveMain {
         try {
             transaction.begin();
 
-            User user = entityManager.find(User.class, "user@user.com");
-            if (user == null) {
-                System.out.println("User 없음");
-            }
-            else {
-                String newName = "이름" + (System.currentTimeMillis() % 100);
+            User user = new User("user@user.com", "user", LocalDateTime.now());
 
-                user.changeName(newName);
-            }
+            entityManager.persist(user);
 
             transaction.commit();
         } catch (Exception ex) {

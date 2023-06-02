@@ -13,3 +13,9 @@ MySQL 설치
 - 도커로 설치:
 docker create --name mysql8 -e MYSQL_ROOT_PASSWORD=root -p 3306:3306 mysql:8.0.27
 docker start mysql8
+
+01. 일단 해보기 정리
+- 간단한 설정으로 클래스와 테이블 간 매핑 처리
+- EntityManager를 이용해서 DB 연동 처리
+- 객체 변경만으로 DB 테이블 업데이트
+- 쿼리 작성 X
