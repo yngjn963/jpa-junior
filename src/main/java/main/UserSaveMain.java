@@ -22,9 +22,11 @@ public class UserSaveMain {
                 String newName = "이름" + (System.currentTimeMillis() % 100);
 
                 user.changeName(newName);
+                logger.info("User.changeName 호출함");
             }
 
             transaction.commit();
+            logger.info("EntityTransaction.commit 호출함");
         } catch (Exception ex) {
             ex.printStackTrace();
 
