@@ -1,7 +1,10 @@
-package jpabasic.reserve.domain;
+package jpabasic.reserve.app;
 
-public class RemoveUserService {
-    public void removeUser(String email) {
+import jpabasic.reserve.domain.EMF;
+import jpabasic.reserve.domain.User;
+
+public class ChangeNameService {
+    public void changeName(String email, String newName) {
         EntityManager em = EMF.createEntityManager();
         EntityTransaction tx = em.getTransaction();
 
@@ -13,7 +16,7 @@ public class RemoveUserService {
                 throw new NoUserException();
             }
 
-            em.remove(user);
+            user.changeName(newName);
 
             tx.commit();
         } catch (Exception ex) {
@@ -24,9 +27,4 @@ public class RemoveUserService {
             em.close();
         }
     }
-    /*
-    삭제
-    - 삭제 대상이 존재하지 않으면
-    em.remove(user); 시점에 다른 프로세스가 데이터를 삭제하면 익셉션 발생
-     */
 }

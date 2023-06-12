@@ -1,4 +1,7 @@
-package jpabasic.reserve.domain;
+package jpabasic.reserve.app;
+
+import jpabasic.reserve.domain.EMF;
+import jpabasic.reserve.domain.User;
 
 public class NewUserService {
     public void saveNewUser(User user) {
