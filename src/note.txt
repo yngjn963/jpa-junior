@@ -51,3 +51,17 @@ EntityManager가 제공하는 메서드 이용
  - persist()
  - 수정
  - remove()
+
+04 엔티티 매핑 설정
+엔티티 매핑
+- 기본 애노테이션
+ - @Entity: 엔티티 클래스에 설정, 필수
+ - @Table: 매핑할 테이블 지정
+ - @Id: 식별자 속성에 설정, 필수
+ - @Column: 매핑할 컬럼명 지정
+  - 지정하지 않으면 필드명/프로퍼티명 사용
+ - @Enumerated: enum 타입 매핑할 때 설정
+
+ - @Temporal: java.util.Date, java.util.Calendar 매핑
+  - 자바8 시간/날짜 타입 등장 이후로 거의 안 씀
+ - @Basic: 기본 지원 타입 매핑(거의 안 씀)
