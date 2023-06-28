@@ -32,6 +32,7 @@ public class MainTableGenId {
         } finally {
             em.close();
         }
+
         EMF.close();
     }
 }
