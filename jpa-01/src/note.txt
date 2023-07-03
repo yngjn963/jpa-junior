@@ -205,3 +205,32 @@ Long genId = review.getId();
  - EntityManager#persist() 호출 시점에 시퀀스 사용
   - persist() 실행할 때 객체에 식별자 값 할당됨
   - INSERT 쿼리는 실행하지 않음
+- 시퀀스 사용 방식 예
+@Entity
+@Table(schema = "crm", name = "activity_log")
+public class ActivityLog {
+    @Id
+    @SequenceGenerator(
+        name = "log_seq_gen",
+        sequenceName = "activity_seq",
+        schema = "crm",
+        allocationSize = 1
+    )
+    @GeneratedValue(generator = "log_seq_gen") // SequenceGenerator의 name
+    private Long id;
+    @Column(name = "user_id")
+    private String userId;
+    ...
+    public ActivityLog(String userId, String activityType) {
+        this.userId = userId;
+        this.activityType = activityType;
+        this.created = LocalDateTime.now();
+    }
+}
+
+// 생성 시점에 식별자 지정하지 않음
+ActivityLog log = new ActivityLog("U01", "VISIT");
+// persist() 시점에 시퀀스로 식별자 구함
+em.persist(log);
+// 커밋 시점에 INSERT 쿼리 실행
+tx.commit();
