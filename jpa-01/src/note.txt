@@ -234,3 +234,44 @@ ActivityLog log = new ActivityLog("U01", "VISIT");
 em.persist(log);
 // 커밋 시점에 INSERT 쿼리 실행
 tx.commit();
+
+- 테이블 사용 방식
+ - 테이블에 엔티티를 위한 키를 보관
+ - 해당 테이블을 이용해서 다음 식별자 생성
+- 설정 방식
+ - @TableGenerator로 테이블 생성기 설정
+ - @GeneratedValue의 generator로 테이블 생성기 지정
+- EntityManager#persist() 호출 시점에 테이블 사용
+ - persist() 할 때 테이블을 이용해서 식별자 구하고 이를 엔티티에 할당
+ - INSERT 쿼리는 실행하지 않음
+- 테이블 사용 방식 예
+ - 식별자를 생성할 때 사용할 때 테이블 구조
+  - 엔티티 이름 컬럼
+  - 식별자 보관 컬럼
+ create table id_seq (
+    entity varchar(100) not null primary key,
+    nextval bigint
+ ) engine innodb character set utf8mb4;
+
+ @Entity
+ @Table(name = "access_log")
+ public class AccessLog {
+    @Id
+    @TableGenerator(
+        name = "accessIdGen",
+        table = "id_seq",
+        pkColumnName = "entity",
+        pkColumnValue = "accesslog",
+        valueColumnName = "nextval",
+        initialValue = 0,
+        allocationSize = 1
+    )
+    @GeneratedValue(generator = "accessIdGen")
+    private Long id;
+ }
+05 엔티티 식별자 생성 방식 정리
+- 식별자 생성 방식
+ - 직접 할당
+ - 식별 컬럼 방식: 저장 시점에 INSERT 쿼리 실행
+ - 시퀀스 사용 방식: 저장 시점에 시퀀스 사용해서 식별자 생성
+ - 테이블 저장 방식: 저장 시점에 테이블 사용해서 식별자 생성
