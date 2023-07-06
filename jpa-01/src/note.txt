@@ -275,3 +275,34 @@ tx.commit();
  - 식별 컬럼 방식: 저장 시점에 INSERT 쿼리 실행
  - 시퀀스 사용 방식: 저장 시점에 시퀀스 사용해서 식별자 생성
  - 테이블 저장 방식: 저장 시점에 테이블 사용해서 식별자 생성
+
+06 Embeddable
+- @Embeddable
+ - 엔티티가 아닌 타입을 한 개 이상의 필드와 매핑할 때 사용
+  - 예: Address, Money 등 매핑
+ - 엔티티의 한 속성으로 @Embeddable 적용 타입 사용
+@Embeddable
+public class Address {
+    @Column(name = "addr1")
+    private String address1;
+    @Column(name = "addr2")
+    private String address2;
+    @Column(name = "zipcode")
+    private String zipcode;
+
+    protected Address() {
+
+    }
+    ...
+}
+
+@Entity
+@Table(name = "hotel_info")
+public class Hotel {
+    @Id
+    @Column(name = "hotel_id")
+    private String id;
+    ...
+    @Embedded
+    private Address address;
+}
