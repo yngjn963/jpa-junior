@@ -306,3 +306,15 @@ public class Hotel {
     @Embedded
     private Address address;
 }
+
+- 저장
+tx.begin();
+Address address = new Address("주소1", "주소2", "12345");
+Hotel hotel = new Hotel("H00", "HN", 2022, Grade.S7, address);
+em.persist(hotel);
+tx.commit;
+
+insert into hotel_info
+    (addr1, addr2, zipcode, created, grade, modified, nm, year, hotel_id)
+values
+    (?, ?, ?, ?, ?, ?, ?, ?, ?)
