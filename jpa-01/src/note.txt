@@ -318,3 +318,15 @@ insert into hotel_info
     (addr1, addr2, zipcode, created, grade, modified, nm, year, hotel_id)
 values
     (?, ?, ?, ?, ?, ?, ?, ?, ?)
+
+- 조회
+Hotel hotel = em.find(Hotel.class, "H00");
+logger.info("주소: {}", hotel.getAddress());
+
+select
+    h1_0.hotel_id, h1_0.addr1, h1_0.addr2, h1_0.zipcode, h1_0.created, h1_0.grade, h1_0.modified, h1_0.nm, h1_0.year
+from
+    hotel_info h1_0
+where
+    h1_0.hotel_id = ?
+주소: Address{address1='주소1', address2='주소2', zipcode='12345'}
