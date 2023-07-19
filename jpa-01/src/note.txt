@@ -330,3 +330,45 @@ from
 where
     h1_0.hotel_id = ?
 주소: Address{address1='주소1', address2='주소2', zipcode='12345'}
+
+- null은?
+tx.begin();
+Address address = null;
+Hotel hotel = new Hotel("H009", "HN", 2022, Grade.S7, address);
+em.persist(hotel);
+tx.commit();
+
+Hotel hotel = em.find(Hotel.class, "H009");
+boolean nullAddr = hotel.getAddress() == null; // true
+
+- 같은 @Embeddable 타입 필드가 두 개면?
+@Entity
+public class Employee {
+    @Id
+    private String id;
+    @Embedded private Address homeAddress;
+    @Embedded private Address workAddress;
+}
+// MappingException - Repeated column in mapping for entity:
+- @AttributeOverride로 설정 재정의
+@Entity
+public class Employee {
+    @Id
+    private String id;
+    @Embedded
+    private Address homeAddress;
+
+    @AttributeOverrides({
+        @AttributeOverride(name = "address1", column = @Column(name = "waddr1")),
+        @AttributeOverride(name = "address2", column = @Column(name = "waddr2")),
+        @AttributeOverride(name = "zipcode", column = @Column(name = "wzipcode"))
+    })
+    @Embedded
+    private Address workAddress;
+}
+insert into Employee (addr1, addr2, zipcode, waddr1, waddr2, wzipcode, id) values (?, ?, ?, ?, ?, ?, ?);
+
+06 Embeddable 정리
+- @Embeddable을 사용하면 모델을 더 잘 표현할 수 있음
+ - 개별 속성을 모아서 이해 -> 타입으로 더 쉽게 이해
+  - (addr1, addr2, zipcode)를 모아서 '이게 주소구나' -> '주소'네
