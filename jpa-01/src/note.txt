@@ -372,3 +372,5 @@ insert into Employee (addr1, addr2, zipcode, waddr1, waddr2, wzipcode, id) value
 - @Embeddable을 사용하면 모델을 더 잘 표현할 수 있음
  - 개별 속성을 모아서 이해 -> 타입으로 더 쉽게 이해
   - (addr1, addr2, zipcode)를 모아서 '이게 주소구나' -> '주소'네
+
+07 Embeddable 다른 테이블에 매핑하기
