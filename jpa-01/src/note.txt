@@ -374,3 +374,28 @@ insert into Employee (addr1, addr2, zipcode, waddr1, waddr2, wzipcode, id) value
   - (addr1, addr2, zipcode)를 모아서 '이게 주소구나' -> '주소'네
 
 07 Embeddable 다른 테이블에 매핑하기
+다른 테이블에 값을 저장할 때
+- 방법1 - @SecondaryTable + 테이블명
+@Embeddable
+public class Intro {
+    @Column(table = "writer_intro",
+    name = "content_type")
+    private String contentType;
+
+    @Column(table = "writer_intro")
+    private String content;
+    ...
+}
+
+@Entity
+@SecondaryTable(name = "writer_intro"),
+    pkJoinColumns = @PrimaryKeyJoinColumn(
+        name = "writer_id", // writer_intro 테이블 컬럼
+        referencedColumnName = "id" // writer 테이블 컬럼
+    )
+)
+public class Writer {
+    ...
+    @Embedded
+    private Intro intro;
+}
