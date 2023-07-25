@@ -429,3 +429,9 @@ public class Writer {
     })
     private Address address;
 }
+
+- 저장
+Writer w = new Writer("name",
+    new Address("주소1", "주소2", "12345"),
+    new Intro("text/plain", "소개글"));
+em.persist(w);
