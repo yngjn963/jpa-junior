@@ -437,3 +437,4 @@ Writer w = new Writer("name",
 em.persist(w);
 
 
+08 값 콜렉션 Set 매핑
